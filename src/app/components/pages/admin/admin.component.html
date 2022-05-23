@@ -1,0 +1,42 @@
+<div class="admin_main">
+  <div class="admin_nav_bar">
+    <h1>Welcome admin!</h1>
+    <button (click)="logout()" class="btn btn-secondary">Logout</button>
+  </div>
+
+  <div class="pagination_control">
+    <pagination-controls
+      previousLabel="Prev"
+      nextLabel="Next"
+      [responsive]="true"
+      (pageChange)="handlePageChange($event)">
+    </pagination-controls>
+  </div>
+
+  <div class="marginTop20">
+    <table class="table table-bordered">
+      <thead>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Username</th>
+      <th>Email Address</th>
+      <th>Actions</th>
+      </thead>
+      <tbody>
+      <tr *ngFor="let user of users | paginate : {itemsPerPage: pageSize, currentPage: offset, totalItems: totalSize};
+       let i = index">
+        <td>{{user.id}}</td>
+        <td>{{user.name}}</td>
+        <td>{{user.username}}</td>
+        <td>{{user.email}}</td>
+        <td>
+          <button (click)="viewUser(user.username)" class="btn btn-warning">View User</button>
+          <button (click)="updateUser(user.id)" class="btn btn-info">Update</button>
+          <button (click)="deleteUser(user.id, user.username)" class="btn btn-danger">Delete</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+

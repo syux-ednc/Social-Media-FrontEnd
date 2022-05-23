@@ -1,0 +1,122 @@
+<div class="register_main">
+
+  <!-- LOGO Area -->
+  <img class="register_logo" src="assets/instagram.png" alt="LOGO">
+
+  <!-- LOGO Description AREA -->
+  <div class="marginTop20">
+    <p id="register_logo_desc">
+      Register to see photos and videos from your friends
+    </p>
+  </div>
+
+  <!-- Details Input Area -->
+  <form #registerForm="ngForm">
+
+    <div class="marginTop20">
+      <div class="form-group">
+        <label>Full Name:</label>
+        <input type="text" name="name" #name="ngModel" class="form-control"
+               [class.is-invalid]="name.invalid && !name.pristine"
+               [(ngModel)]="newUser.name" required pattern="^[a-zA-Z ]*$">
+        <small *ngIf="name.errors?.['required'] && !name.pristine" style="color: red">
+          This field is required!
+        </small>
+        <small *ngIf="name.errors?.['pattern'] && !name.pristine" style="color: red">
+          No special characters or numbers allowed!
+        </small>
+      </div>
+    </div>
+
+    <div class="marginTop20">
+      <div class="form-group">
+        <label>Email:</label>
+        <input type="email" name="email" #email="ngModel" class="form-control" email
+               [class.is-invalid]="email.invalid && !email.pristine"
+               [(ngModel)]="newUser.email" required appEmailExist>
+        <small *ngIf="email.errors?.['required'] && !email.pristine" style="color: red">
+          This field is required!
+        </small>
+        <small *ngIf="email.errors?.['emailTaken'] && !email.pristine" style="color: red">
+          This email is taken!
+        </small>
+        <small *ngIf="email.errors?.['email'] && !email.pristine" style="color: red">
+          Invalid email address!
+        </small>
+      </div>
+    </div>
+
+    <div class="marginTop20">
+      <div class="form-group">
+        <label>Username:</label>
+        <input type="text" name="username" #username="ngModel" class="form-control"
+               [class.is-invalid]="username.invalid && !username.pristine"
+               [(ngModel)]="newUser.username" required appUsernameExist minlength="4" maxlength="20"
+               pattern="^[a-zA-Z0-9_.]*$">
+        <small *ngIf="username.errors?.['usernameTaken'] && !username.pristine" style="color: red">
+          This username is taken!
+        </small>
+        <small *ngIf="username.errors?.['required'] && !username.pristine" style="color: red">
+          This field is required!
+        </small>
+        <small *ngIf="username.errors?.['minlength'] && !username.pristine" style="color: red">
+          Min. 4 characters and Max. 20 characters.
+        </small>
+        <small *ngIf="username.errors?.['pattern'] && !username.pristine" style="color: red">
+          Alphanumeric characters and ".", "_" symbols only.
+        </small>
+      </div>
+    </div>
+
+    <div class="marginTop20">
+      <div class="form-group">
+        <label>Password:</label>
+        <input type="password" name="password" #password="ngModel" class="form-control"
+               [class.is-invalid]="password.invalid && !password.pristine"
+               [(ngModel)]="newUser.password" required minlength="8"
+               pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#.)(?!@$%^&*-]).+$">
+        <small *ngIf="password.errors?.['required'] && !password.pristine" style="color: red">
+          This field is required!
+        </small>
+        <small *ngIf="password.errors?.['minlength'] && !password.pristine" style="color: red">
+          Min 8 characters.
+        </small>
+        <small *ngIf="password.errors?.['pattern'] && !password.pristine" style="color: red">
+          Min 1 Upper & Lower Case Letter, 1 Number, 1 Symbol.
+        </small>
+      </div>
+    </div>
+
+    <div class="marginTop20">
+      <div class="form-group">
+        <label>Re-Enter Password:</label>
+        <input type="password" name="rePassword" #rePassword="ngModel" class="form-control"
+               [class.is-invalid]="(rePassword.invalid && !rePassword.pristine) || (inputRePwd !== newUser.password  && !rePassword.pristine)"
+               [(ngModel)]="inputRePwd" required minlength="8">
+        <small *ngIf="rePassword.errors?.['required'] && !rePassword.pristine" style="color: red">
+          This field is required!
+        </small>
+        <small *ngIf="inputRePwd !== newUser.password   && !rePassword.pristine" style="color: red">
+          Both passwords do not match!
+        </small>
+      </div>
+    </div>
+
+    <!-- Register Button Area -->
+    <div class="marginTop20">
+      <button (click)="register()" class="btn btn-primary" type="submit"
+              [disabled]="(registerForm.form.invalid || inputRePwd !== newUser.password) || isSubmitting">
+        Register
+      </button>
+    </div>
+
+  </form>
+
+  <!-- Login Area -->
+  <div class="marginTop20">
+    Already have an account?
+    <span class="register_login_text">
+      <a [routerLink]="['/']">Login</a>
+    </span>
+  </div>
+</div>

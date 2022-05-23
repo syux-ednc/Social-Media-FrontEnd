@@ -1,0 +1,14 @@
+<nav class="navbar">
+  <div>
+    <img (click)="scrollTop()" class="navbar_logo" src="assets/instagram.png" alt="LOGO">
+  </div>
+  <div>
+    <h5 class="navbar_text">Welcome, {{user}}</h5>
+  </div>
+  <div>
+    <img class="navbar_icon" style="margin-left: 0" routerLink="/feed" src="assets/home.png" alt="LOGO">
+    <img class="navbar_icon" routerLink="/profile" src="assets/account.png" alt="LOGO">
+    <img class="navbar_icon" routerLink="/create-post" src="assets/add.png" alt="LOGO">
+    <img class="navbar_icon" routerLink="/" src="assets/logout.png" alt="LOGO">
+  </div>
+</nav>

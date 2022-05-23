@@ -1,0 +1,19 @@
+/* Background color of nav bar: #fafafa (WRONG)*/
+/* Background color of nav bar: #fcfcfc */
+
+.navbar{
+  background-color: white;
+  display: flex;
+  justify-content: space-around;
+  padding: 20px 24px;
+  position: sticky;
+  position: -webkit-sticky; /* For macOS/iOS Safari */
+  top: 0; /* Sets the sticky toolbar to be on top */
+  z-index: 1000; /* Ensure that your app's content doesn't overlap the toolbar */
+}
+
+.navbar_icon{
+  width: 36px;
+  height: 36px;
+  margin-left: 24px;
+}

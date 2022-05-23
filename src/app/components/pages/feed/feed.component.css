@@ -1,0 +1,22 @@
+.feed_list {
+  background-color: #fafafa;
+  display: flex;
+  justify-content: center;
+}
+
+.feed_list_btn {
+  margin: 24px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.feed_list_end {
+  margin: 24px 0;
+  display: flex;
+  justify-content: center;
+}
+
+#empty_posts {
+  display: flex;
+  justify-content: center;
+}

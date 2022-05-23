@@ -1,0 +1,72 @@
+<div class="login_main">
+
+  <!-- LOGO Area -->
+  <img class="login_logo" src="assets/instagram.png" alt="LOGO">
+
+  <!-- Credentials Input Area -->
+  <form #loginForm="ngForm">
+
+    <!-- Error Messages Area -->
+    <div class="marginTop20">
+      <div [ngSwitch]="message">
+        <div *ngSwitchCase="'success'">
+          <div class="alert alert-success" role="alert">
+            Registration success! Please login to your account.
+          </div>
+        </div>
+        <div *ngSwitchCase="'bad'">
+          <div class="alert alert-danger" role="alert">
+            Invalid Credentials, please try again!
+          </div>
+        </div>
+        <div *ngSwitchDefault></div>
+      </div>
+    </div>
+
+    <!-- Username Area -->
+    <div class="marginTop20">
+      <div class="form-group">
+        <label>Username:</label>
+        <input type="text" name="username" #username="ngModel" class="form-control"
+               [class.is-invalid]="username.invalid && !username.pristine"
+               [(ngModel)]="user.username" required pattern="^[a-zA-Z0-9_.]*$">
+        <small *ngIf="username.errors?.['required'] && !username.pristine" style="color: red">
+          This field is required!
+        </small>
+        <small *ngIf="username.errors?.['pattern'] && !username.pristine" style="color: red">
+          Alphanumeric characters and ".", "_" symbols only.
+        </small>
+      </div>
+    </div>
+
+    <!-- Password Area -->
+    <div class="marginTop20">
+      <div class="form-group">
+        <label>Password:</label>
+        <input type="password" name="password" #password="ngModel" class="form-control"
+               [class.is-invalid]="password.invalid && !password.pristine"
+               [(ngModel)]="user.password" required>
+        <small *ngIf="password.errors?.['required']  && !password.pristine" style="color: red">
+          This field is required!
+        </small>
+      </div>
+    </div>
+
+    <!-- Login Button Area -->
+    <div class="marginTop20">
+      <button (click)="login()" class="btn btn-primary" type="submit"
+              [disabled]="loginForm.form.invalid">
+        Login
+      </button>
+    </div>
+
+  </form>
+
+  <!-- Register Area -->
+  <div class="marginTop20">
+    Don't have an account?
+    <span class="login_register_text">
+      <a [routerLink]="['/register']">Register</a>
+    </span>
+  </div>
+</div>

@@ -1,0 +1,67 @@
+<div *ngIf="isAdmin; then displayAdminNavBar; else displayUserNavBar"></div>
+
+<ng-template #displayAdminNavBar>
+  <button routerLink="/admin" class="btn btn-secondary">Back</button>
+</ng-template>
+
+<ng-template #displayUserNavBar>
+  <app-nav-bar></app-nav-bar>
+</ng-template>
+
+<div class="profile_main">
+  <h3>My Info</h3>
+  <div class="marginTop20">
+    <table class="table table-borderless">
+      <tr>
+        <th>ID:</th>
+        <td>{{profile.id}}</td>
+      </tr>
+      <tr>
+        <th>Name:</th>
+        <td>{{profile.name}}</td>
+      </tr>
+      <tr>
+        <th>Email:</th>
+        <td>{{profile.email}}</td>
+      </tr>
+      <tr>
+        <th>Username:</th>
+        <td>{{profile.username}}</td>
+      </tr>
+      <tr>
+        <th>Role:</th>
+        <td>{{profile.role}}</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+
+<div *ngIf="posts.length; then displayPosts; else displayEmpty"></div>
+
+<ng-template #displayPosts>
+  <div>
+    <div class="feed_list" *ngFor="let post of posts">
+      <app-post [isMyProfile]=true [post]="post"></app-post>
+    </div>
+
+    <div *ngIf="hasMore; then displayMore; else displayDone"></div>
+
+    <ng-template #displayMore>
+      <div class="feed_list_btn">
+        <button (click)="fetchPost()" class="btn btn-info">Load More</button>
+      </div>
+    </ng-template>
+
+    <ng-template #displayDone>
+      <h4 class="feed_list_end">No more posts!</h4>
+    </ng-template>
+  </div>
+
+</ng-template>
+
+<ng-template #displayEmpty>
+  <div id="empty_posts">
+    <h5>There are no posts yet.</h5>
+  </div>
+</ng-template>

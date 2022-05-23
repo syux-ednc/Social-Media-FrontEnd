@@ -1,0 +1,28 @@
+.marginTop20 {
+  margin-top: 20px;
+}
+
+.login_main {
+  width: 360px;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  max-width: 100%;
+  max-height: 100%;
+  overflow: auto;
+  padding: 24px;
+  border: 1px solid #DBDBDB;
+}
+
+.login_logo {
+  margin: 0 auto;
+  display: block;
+}
+
+.login_register_text a {
+  text-decoration: none;
+  color: #0395F6;
+  font-weight: bold;
+}

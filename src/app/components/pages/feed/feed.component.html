@@ -1,0 +1,31 @@
+<app-nav-bar></app-nav-bar>
+
+<div *ngIf="posts.length; then displayPosts; else displayEmpty"></div>
+
+  <ng-template #displayPosts>
+    <div>
+      <div class="feed_list" *ngFor="let post of posts">
+        <app-post [post]="post"></app-post>
+      </div>
+
+      <div *ngIf="hasMore; then displayMore; else displayDone"></div>
+
+      <ng-template #displayMore>
+        <div class="feed_list_btn">
+          <button (click)="fetchPost()" class="btn btn-info">Load More</button>
+        </div>
+      </ng-template>
+
+      <ng-template #displayDone>
+        <h4 class="feed_list_end">No more posts!</h4>
+      </ng-template>
+    </div>
+
+  </ng-template>
+
+  <ng-template #displayEmpty>
+    <div id="empty_posts">
+      <h5>There are no posts yet.</h5>
+    </div>
+  </ng-template>
+

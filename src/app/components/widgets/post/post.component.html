@@ -1,0 +1,68 @@
+<div class="post_main">
+
+  <!-- Header with Triple Dot-->
+  <div class="post_header">
+    <div class="post_header_username">
+      <div>
+        <img src="assets/profile_placeholder.png" alt="PLACEHOLDER">
+        <span>{{post.createdBy}}</span>
+      </div>
+    </div>
+    <div class="post_header_actions" *ngIf="isMyProfile">
+      <img class="post_header_icons" (click)="updatePost(post.id)" src="assets/edit.png" alt="Edit">
+      <img class="post_header_icons" (click)="deletePost(post.id)" src="assets/delete.png" alt="Delete">
+    </div>
+  </div>
+
+  <!-- Image / Video / File / URL-->
+  <div [ngSwitch]="post.type" class="post_body">
+    <div *ngSwitchCase="'IMAGE'" class="post_media_image">
+      <img src="{{post.media_src}}" alt="MEDIA">
+    </div>
+    <div *ngSwitchCase="'VIDEO'" class="post_media_video">
+      <vg-player>
+        <video #media [vgMedia]="$any(media)" id="singleVideo" preload="auto" controls>
+          <source src="{{post.media_src}}" type="video/mp4">
+        </video>
+      </vg-player>
+    </div>
+    <a id="clickable_download" href="{{post.media_src}}" download>
+      <div *ngSwitchCase="'FILE'" class="post_media_file">
+        <table>
+          <tr>
+            <td>
+              <img src="assets/attachment.png" alt="ATTACHMENT">
+            </td>
+            <td>
+              <h5>FILE</h5>
+              {{post.media_src}}
+            </td>
+          </tr>
+        </table>
+      </div>
+    </a>
+    <div *ngSwitchCase="'LINK'" class="post_media_link">
+      Link: <a href="{{post.media_src}}" target="_blank">{{post.media_src}}</a>
+    </div>
+    <div *ngSwitchDefault>
+      <h3>No such available type!</h3>
+    </div>
+  </div>
+
+  <!-- Caption -->
+  <div>
+    <div class="post_caption">
+      <span class="post_caption_title">
+        Caption:
+      </span>
+      <span class="post_caption_desc">
+        {{post.caption}}
+      </span>
+      <br>
+      <small class="post_time_tracker">
+        {{post.modifiedDt | dateAsAgo}}
+      </small>
+    </div>
+  </div>
+
+</div>

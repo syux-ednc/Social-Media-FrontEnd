@@ -1,0 +1,25 @@
+.marginTop20 {
+  margin-top: 20px;
+}
+
+.admin_main{
+  padding: 20px;
+}
+
+.admin_nav_bar{
+  display: flex;
+  justify-content: space-between;
+}
+
+.pagination_control{
+  display: flex;
+  justify-content: center;
+}
+
+th{
+  padding: 8px;
+}
+
+td button {
+  margin-right: 12px;
+}

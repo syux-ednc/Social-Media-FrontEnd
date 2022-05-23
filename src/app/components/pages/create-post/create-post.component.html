@@ -1,0 +1,93 @@
+<app-nav-bar></app-nav-bar>
+
+<div class="create_post_main">
+  <div class="form-group">
+    <form #creatPostForm="ngForm">
+
+      <div *ngIf="isEditPost; then displayEdit; else displayCreate"></div>
+      <ng-template #displayEdit><h3>Edit Post</h3></ng-template>
+      <ng-template #displayCreate><h3>Create Post</h3></ng-template>
+
+      <!-- Choose type of post -->
+      <div class="marginTop20">
+        <div class="form-group">
+          <label>Select Type of Post:</label>
+          <br>
+          <select name="postType" class="custom-select"
+                  [(ngModel)]="post.type" required (change)="onMediaTypeChange()">
+            <option *ngFor="let type of mediaTypes" value="{{type}}">
+              {{type}}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Show upload area depending on type of post selected -->
+      <div class="marginTop20">
+        <div class="form-group" [ngSwitch]="post.type">
+          <div *ngSwitchCase="'IMAGE'">
+            <label>Select Image (ONLY .jpg or .png)</label>
+            <input type="file" class="form-control" [class.is-invalid]="isFileInvalid"
+                   (change)="onFileSelected($event)">
+            <small *ngIf="isFileInvalid" style="color: red">
+              Image is not in .jpeg or .png format!
+            </small>
+          </div>
+          <div *ngSwitchCase="'VIDEO'">
+            <label>Select Video (ONLY .mp4)</label>
+            <input type="file" class="form-control" [class.is-invalid]="isFileInvalid"
+                   (change)="onFileSelected($event)">
+            <small *ngIf="isFileInvalid" style="color: red">
+              Video is not in .mp4 format!
+            </small>
+          </div>
+          <div *ngSwitchCase="'FILE'">
+            <label>Select Files (All except .mp4, .jpg, .png)</label>
+            <input type="file" class="form-control" [class.is-invalid]="isFileInvalid"
+                   (change)="onFileSelected($event)">
+            <small *ngIf="isFileInvalid" style="color: red">
+              Please select correct media type for .jpeg .png .mp4 files.
+            </small>
+          </div>
+          <div *ngSwitchCase="'LINK'">
+            <label>Enter Link:</label>
+            <input type="url" name="url" #url="ngModel" class="form-control"
+                   [class.is-invalid]="url.invalid && !url.pristine"
+                   pattern="^((https?|ftp|smtp):\/\/)[a-zA-Z0-9.\/\?\:]+$"
+                   [(ngModel)]="post.media_src" required>
+            <small *ngIf="url.errors?.['required'] && !url.pristine" style="color: red">
+              This field is required!
+            </small>
+            <small *ngIf="url.errors?.['pattern'] && !url.pristine" style="color: red">
+              URLs must begin with 'https:// or http://'
+            </small>
+          </div>
+        </div>
+      </div>
+
+      <!-- Enter Caption Area -->
+      <div class="marginTop20">
+        <div *ngIf="(!isFileInvalid && selectedFile) || post.media_src" class="form-group">
+          <label>Enter Caption:</label>
+          <input name="caption" #caption="ngModel" class="form-control"
+                 [class.is-invalid]="caption.invalid && !caption.pristine"
+                 [(ngModel)]=post.caption required maxlength="500">
+          <small *ngIf="caption.errors?.['required'] && !caption.pristine" style="color: red">
+            This field is required!
+          </small>
+        </div>
+      </div>
+
+      <div class="marginTop20">
+        <button (click)="onSubmit()" class="btn btn-primary" type="submit"
+                [disabled]="
+                creatPostForm.form.invalid || isSubmitting ||
+                (isFileInvalid || (!selectedFile && post.type !== 'LINK'))
+                ">
+          Submit
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>

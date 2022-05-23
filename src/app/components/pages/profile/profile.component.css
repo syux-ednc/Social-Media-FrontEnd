@@ -1,0 +1,36 @@
+.profile_main {
+  width: 360px;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  max-width: 100%;
+  max-height: 100%;
+  overflow: auto;
+  padding: 24px;
+  border: 1px solid #DBDBDB;
+}
+
+.feed_list {
+  background-color: #fafafa;
+  display: flex;
+  justify-content: center;
+}
+
+.feed_list_btn {
+  margin: 24px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.feed_list_end {
+  margin: 24px 0;
+  display: flex;
+  justify-content: center;
+}
+
+#empty_posts {
+  display: flex;
+  justify-content: center;
+}
