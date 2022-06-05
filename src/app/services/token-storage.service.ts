@@ -38,7 +38,7 @@ export class TokenStorageService {
     return {};
   }
 
-  public saveRole(role: string): void {
+  public saveRole(role: any): void {
     window.sessionStorage.removeItem(this.ROLE_KEY);
     window.sessionStorage.setItem(this.ROLE_KEY, role);
   }

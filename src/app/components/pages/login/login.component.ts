@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {TokenStorageService} from "../../../services/token-storage.service";
 import {AuthService} from "../../../services/auth.service";
 import {User} from "../../../models/User";
+import jwtDecode from "jwt-decode";
 
 @Component({
   selector: 'app-login',
@@ -14,6 +15,7 @@ export class LoginComponent implements OnInit {
   user: User = new User();
   message: string | undefined;
   isSubmitting: boolean = false;
+  decodedToken: { [key: string]: string; } | undefined;
 
   constructor(
     private _router: Router,
@@ -35,11 +37,19 @@ export class LoginComponent implements OnInit {
     this.isSubmitting = true;
     this._authService.login(this.user).subscribe({
       next: (data: any) => {
-        console.log("DATA:", data);
+        console.log("TOKEN:", data.message);
         this.isSubmitting = false;
-        this._tokenStorage.saveToken(data.access_token);
-        this._tokenStorage.saveUser(data.username);
-        this._tokenStorage.saveRole(data.role);
+
+        //Decode Token and get content
+        this.decodedToken = jwtDecode(data.message);
+        let username = this.decodedToken ? this.decodedToken['sub'] : null;
+        let role = this.decodedToken ? this.decodedToken['role'][0] : null;
+
+        //Saving decoded contents to session storage
+        this._tokenStorage.saveToken(data.message);
+        this._tokenStorage.saveUser(username);
+        this._tokenStorage.saveRole(role);
+
         this._router.navigate(data.role === ('ROLE_ADMIN')
           ? ['/admin']
           : ['/feed']);
