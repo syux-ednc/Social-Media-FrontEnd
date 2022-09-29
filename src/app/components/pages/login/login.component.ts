@@ -50,7 +50,7 @@ export class LoginComponent implements OnInit {
         this._tokenStorage.saveUser(username);
         this._tokenStorage.saveRole(role);
 
-        this._router.navigate(data.role === ('ROLE_ADMIN')
+        this._router.navigate(this._tokenStorage.getRole() === ('ROLE_ADMIN')
           ? ['/admin']
           : ['/feed']);
       },
